@@ -39,8 +39,6 @@ class SourceFile < Thor
   def convert
     self.destination_root = 'vendor/assets'
     inside destination_root do
-      #gsub_file 'stylesheets/bootstrap.scss', %r/url\(([^\)]*)\)/, 'image-url(\1)'
-      gsub_file 'stylesheets/bootstrap.scss', %r/url\('(\.\.\/fonts\/)([^\)]*)'\)/, 'url(font-path(\'\2\'))'
       gsub_file 'stylesheets/font-awesome.scss', %r/url\('(\.\.\/fonts\/)([^\)]*)'\)/, 'url(font-path(\'\2\'))'
       gsub_file 'stylesheets/ionicons.scss', %r/url\("(\.\.\/fonts\/)([^\)]*)"\)/, 'url(font-path(\'\2\'))'
     end
@@ -94,7 +92,6 @@ class SourceFile < Thor
   def fetch_stylesheets(remote, tag)
     # Get Css files
     css_path = "#{remote}/raw/#{tag}/css"
-    get "#{css_path}/bootstrap.css", 'stylesheets/bootstrap.scss'
     get "#{css_path}/AdminLTE.css", 'stylesheets/admin-lte.css'
     get "#{css_path}/ionicons.css", 'stylesheets/ionicons.scss'
     get "#{css_path}/font-awesome.css", 'stylesheets/font-awesome.scss'
